@@ -1,11 +1,24 @@
-import { useQuery } from "@apollo/client";
-import { GET_REBALANCING_HISTORY } from "../lib/subgraph";
-
 export default function RebalancingHistory() {
-  const { loading, error, data } = useQuery(GET_REBALANCING_HISTORY);
-
-  if (loading) return <p className="text-gray-400">Loading...</p>;
-  if (error) return <p className="text-red-500">Error loading history</p>;
+  const placeholderData = [
+    {
+      id: "1",
+      oldPool: "Uniswap",
+      newPool: "SushiSwap",
+      amount: "5.2 WBTC",
+      yieldBefore: "2.5%",
+      yieldAfter: "3.2%",
+      timestamp: 1707768468000, // Static Unix timestamp
+    },
+    {
+      id: "2",
+      oldPool: "Balancer",
+      newPool: "Aave",
+      amount: "3.8 WBTC",
+      yieldBefore: "1.8%",
+      yieldAfter: "2.7%",
+      timestamp: 1707768468000, // Static Unix timestamp
+    },
+  ];
 
   return (
     <div className="mt-6">
@@ -23,15 +36,15 @@ export default function RebalancingHistory() {
             </tr>
           </thead>
           <tbody>
-            {data.rebalancingEvents.map((event) => (
+            {placeholderData.map((event) => (
               <tr key={event.id} className="border-b border-gray-700">
                 <td className="p-2">{event.oldPool}</td>
                 <td className="p-2">{event.newPool}</td>
-                <td className="p-2 text-right">{event.amount} WBTC</td>
-                <td className="p-2 text-right">{event.yieldBefore}%</td>
-                <td className="p-2 text-right">{event.yieldAfter}%</td>
+                <td className="p-2 text-right">{event.amount}</td>
+                <td className="p-2 text-right">{event.yieldBefore}</td>
+                <td className="p-2 text-right">{event.yieldAfter}</td>
                 <td className="p-2 text-right">
-                  {new Date(event.timestamp * 1000).toLocaleString()}
+                  {new Date(event.timestamp).toLocaleString()} {/* Format on client */}
                 </td>
               </tr>
             ))}
