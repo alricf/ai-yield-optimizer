@@ -7,12 +7,17 @@ export default function NetworkSelector({ onSelectionChange }) {
   const [selectedNetworks, setSelectedNetworks] = useState([]);
   const [selectedAMMs, setSelectedAMMs] = useState([]);
 
-  const toggleSelection = (item, list, setList) => {
-    const newSelection = list.includes(item)
-      ? list.filter((i) => i !== item)
-      : [...list, item];
-    setList(newSelection);
-    onSelectionChange({ networks: selectedNetworks, amms: selectedAMMs });
+  const toggleSelection = (item, list, setList, type) => {
+    setList((prevSelection) => {
+      const newSelection = prevSelection.includes(item)
+        ? prevSelection.filter((i) => i !== item) // Remove if already selected
+        : [...prevSelection, item]; // Add if not selected
+
+      console.log(`Updated ${type}:`, newSelection); // ✅ Logs selected names immediately
+      onSelectionChange({ networks: type === "Networks" ? newSelection : selectedNetworks, amms: type === "AMMs" ? newSelection : selectedAMMs });
+
+      return newSelection;
+    });
   };
 
   return (
@@ -25,7 +30,7 @@ export default function NetworkSelector({ onSelectionChange }) {
             className={`px-4 py-2 rounded-md ${
               selectedNetworks.includes(network) ? "bg-blue-500" : "bg-gray-700 hover:bg-gray-600"
             } transition`}
-            onClick={() => toggleSelection(network, selectedNetworks, setSelectedNetworks)}
+            onClick={() => toggleSelection(network, selectedNetworks, setSelectedNetworks, "Networks")}
           >
             {network}
           </button>
@@ -40,7 +45,7 @@ export default function NetworkSelector({ onSelectionChange }) {
             className={`px-4 py-2 rounded-md ${
               selectedAMMs.includes(amm) ? "bg-green-500" : "bg-gray-700 hover:bg-gray-600"
             } transition`}
-            onClick={() => toggleSelection(amm, selectedAMMs, setSelectedAMMs)}
+            onClick={() => toggleSelection(amm, selectedAMMs, setSelectedAMMs, "AMMs")}
           >
             {amm}
           </button>

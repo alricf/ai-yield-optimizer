@@ -12,10 +12,12 @@ export default function Home() {
   const [autoRebalance, setAutoRebalance] = useState(false);
 
   // Logging whenever state updates
-  const handleSelectionChange = (newSelection) => {
-    console.log("Updated Networks & AMMs:", newSelection);
-    setSelection(newSelection);
-  };
+const handleSelectionChange = (newSelection) => {
+  console.log("Selected Networks:", newSelection.networks);
+  console.log("Selected AMMs:", newSelection.amms);
+  setSelection(newSelection);
+};
+
 
   const handleToleranceChange = (newTolerance) => {
     console.log("Updated Yield Difference Tolerance:", newTolerance);
