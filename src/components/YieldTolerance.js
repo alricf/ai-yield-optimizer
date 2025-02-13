@@ -1,3 +1,5 @@
+
+
 import { useState } from "react";
 
 const defaultTolerances = [2, 5, 10]; // Default thresholds in %
