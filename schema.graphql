@@ -1,11 +1,13 @@
 type Burn @entity(immutable: true) {
   id: Bytes!
+  sender: Bytes! # address
+  amount0: BigInt! # uint256
+  amount1: BigInt! # uint256
+  to: Bytes! # address
   owner: Bytes! # address
   tickLower: Int! # int24
   tickUpper: Int! # int24
   amount: BigInt! # uint128
-  amount0: BigInt! # uint256
-  amount1: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -100,49 +102,21 @@ type Swap @entity(immutable: true) {
   sqrtPriceX96: BigInt! # uint160
   liquidity: BigInt! # uint128
   tick: Int! # int24
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-type Approval @entity(immutable: true) {
-  id: Bytes!
-  owner: Bytes! # address
-  spender: Bytes! # address
-  value: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type UniswapV2PairBurn @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
-  amount0: BigInt! # uint256
-  amount1: BigInt! # uint256
-  to: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type UniswapV2PairMint @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
-  amount0: BigInt! # uint256
-  amount1: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type UniswapV2PairSwap @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
   amount0In: BigInt! # uint256
   amount1In: BigInt! # uint256
   amount0Out: BigInt! # uint256
   amount1Out: BigInt! # uint256
   to: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Approval @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  spender: Bytes! # address
+  value: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -166,3 +140,4 @@ type Transfer @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
