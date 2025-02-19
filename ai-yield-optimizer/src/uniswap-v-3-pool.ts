@@ -7,7 +7,7 @@ import {
   Initialize as InitializeEvent,
   Mint as MintEvent,
   SetFeeProtocol as SetFeeProtocolEvent,
-  Swap as SwapEvent
+  Swap as SwapEvent,
 } from "../generated/UniswapV3Pool/UniswapV3Pool"
 import {
   Burn,
@@ -18,24 +18,19 @@ import {
   Initialize,
   Mint,
   SetFeeProtocol,
-  Swap
+  Swap,
 } from "../generated/schema"
-import { BigInt } from "@graphprotocol/graph-ts"
 
 export function handleBurn(event: BurnEvent): void {
   let entity = new Burn(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
-  // Remove this line: entity.sender = event.params.sender
   entity.owner = event.params.owner
   entity.tickLower = event.params.tickLower
   entity.tickUpper = event.params.tickUpper
   entity.amount = event.params.amount
   entity.amount0 = event.params.amount0
   entity.amount1 = event.params.amount1
-
-  // If you need the sender, you can use the transaction sender
-  entity.sender = event.transaction.from
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -46,7 +41,7 @@ export function handleBurn(event: BurnEvent): void {
 
 export function handleCollect(event: CollectEvent): void {
   let entity = new Collect(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.owner = event.params.owner
   entity.recipient = event.params.recipient
@@ -64,7 +59,7 @@ export function handleCollect(event: CollectEvent): void {
 
 export function handleCollectProtocol(event: CollectProtocolEvent): void {
   let entity = new CollectProtocol(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.sender = event.params.sender
   entity.recipient = event.params.recipient
@@ -80,7 +75,7 @@ export function handleCollectProtocol(event: CollectProtocolEvent): void {
 
 export function handleFlash(event: FlashEvent): void {
   let entity = new Flash(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.sender = event.params.sender
   entity.recipient = event.params.recipient
@@ -97,10 +92,10 @@ export function handleFlash(event: FlashEvent): void {
 }
 
 export function handleIncreaseObservationCardinalityNext(
-  event: IncreaseObservationCardinalityNextEvent
+  event: IncreaseObservationCardinalityNextEvent,
 ): void {
   let entity = new IncreaseObservationCardinalityNext(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.observationCardinalityNextOld =
     event.params.observationCardinalityNextOld
@@ -116,7 +111,7 @@ export function handleIncreaseObservationCardinalityNext(
 
 export function handleInitialize(event: InitializeEvent): void {
   let entity = new Initialize(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.sqrtPriceX96 = event.params.sqrtPriceX96
   entity.tick = event.params.tick
@@ -130,7 +125,7 @@ export function handleInitialize(event: InitializeEvent): void {
 
 export function handleMint(event: MintEvent): void {
   let entity = new Mint(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.sender = event.params.sender
   entity.owner = event.params.owner
@@ -149,7 +144,7 @@ export function handleMint(event: MintEvent): void {
 
 export function handleSetFeeProtocol(event: SetFeeProtocolEvent): void {
   let entity = new SetFeeProtocol(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.feeProtocol0Old = event.params.feeProtocol0Old
   entity.feeProtocol1Old = event.params.feeProtocol1Old
@@ -165,7 +160,7 @@ export function handleSetFeeProtocol(event: SetFeeProtocolEvent): void {
 
 export function handleSwap(event: SwapEvent): void {
   let entity = new Swap(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.transaction.hash.concatI32(event.logIndex.toI32()),
   )
   entity.sender = event.params.sender
   entity.recipient = event.params.recipient
@@ -175,21 +170,9 @@ export function handleSwap(event: SwapEvent): void {
   entity.liquidity = event.params.liquidity
   entity.tick = event.params.tick
 
-  // These fields are not directly available in the Swap event
-  // You might need to calculate or obtain them differently
-  entity.amount0In = event.params.amount0.gt(BigInt.fromI32(0)) ? event.params.amount0 : BigInt.fromI32(0)
-  entity.amount1In = event.params.amount1.gt(BigInt.fromI32(0)) ? event.params.amount1 : BigInt.fromI32(0)
-  entity.amount0Out = event.params.amount0.lt(BigInt.fromI32(0)) ? event.params.amount0.neg() : BigInt.fromI32(0)
-  entity.amount1Out = event.params.amount1.lt(BigInt.fromI32(0)) ? event.params.amount1.neg() : BigInt.fromI32(0)
-
-  // The 'to' field is the same as 'recipient' in this case
-  entity.to = event.params.recipient
-
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
 
   entity.save()
 }
-
-
