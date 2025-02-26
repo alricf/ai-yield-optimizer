@@ -1,73 +1,13 @@
-type Approval @entity(immutable: true) {
-  id: Bytes!
-  owner: Bytes! # address
-  spender: Bytes! # address
-  value: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 type Burn @entity(immutable: true) {
   id: Bytes!
   sender: Bytes! # address
   amount0: BigInt! # uint256
   amount1: BigInt! # uint256
   to: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Mint @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
-  amount0: BigInt! # uint256
-  amount1: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Swap @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
-  amount0In: BigInt! # uint256
-  amount1In: BigInt! # uint256
-  amount0Out: BigInt! # uint256
-  amount1Out: BigInt! # uint256
-  to: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Sync @entity(immutable: true) {
-  id: Bytes!
-  reserve0: BigInt! # uint112
-  reserve1: BigInt! # uint112
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Transfer @entity(immutable: true) {
-  id: Bytes!
-  from: Bytes! # address
-  to: Bytes! # address
-  value: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-type UniswapV3PoolBurn @entity(immutable: true) {
-  id: Bytes!
   owner: Bytes! # address
   tickLower: Int! # int24
   tickUpper: Int! # int24
   amount: BigInt! # uint128
-  amount0: BigInt! # uint256
-  amount1: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -128,7 +68,7 @@ type Initialize @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type UniswapV3PoolMint @entity(immutable: true) {
+type Mint @entity(immutable: true) {
   id: Bytes!
   sender: Bytes! # address
   owner: Bytes! # address
@@ -153,7 +93,7 @@ type SetFeeProtocol @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type UniswapV3PoolSwap @entity(immutable: true) {
+type Swap @entity(immutable: true) {
   id: Bytes!
   sender: Bytes! # address
   recipient: Bytes! # address
@@ -162,7 +102,42 @@ type UniswapV3PoolSwap @entity(immutable: true) {
   sqrtPriceX96: BigInt! # uint160
   liquidity: BigInt! # uint128
   tick: Int! # int24
+  amount0In: BigInt! # uint256
+  amount1In: BigInt! # uint256
+  amount0Out: BigInt! # uint256
+  amount1Out: BigInt! # uint256
+  to: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+type Approval @entity(immutable: true) {
+  id: Bytes!
+  owner: Bytes! # address
+  spender: Bytes! # address
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Sync @entity(immutable: true) {
+  id: Bytes!
+  reserve0: BigInt! # uint112
+  reserve1: BigInt! # uint112
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+

@@ -1,0 +1,11 @@
+{
+  "mainnet": {
+    "UniswapV3Pool": {
+      "address": "0xcbcdf9626bc03e24f779434178a73a0b4bad62ed",
+      "startBlock": 12369821
+    },
+    "UniswapV2Pair": {
+      "address": "0xceff51756c56ceffca006cd410b03ffc46dd3a58"
+    }
+  }
+}

@@ -6,7 +6,14 @@ import {
   Sync as SyncEvent,
   Transfer as TransferEvent
 } from "../generated/UniswapV2Pair/UniswapV2Pair"
-import { Approval, Burn, Mint, Swap, Sync, Transfer } from "../generated/schema"
+import {
+  Approval,
+  Burn,
+  Mint,
+  Swap,
+  Sync,
+  Transfer
+} from "../generated/schema"
 
 export function handleApproval(event: ApprovalEvent): void {
   let entity = new Approval(
@@ -86,6 +93,7 @@ export function handleSync(event: SyncEvent): void {
   entity.save()
 }
 
+
 export function handleTransfer(event: TransferEvent): void {
   let entity = new Transfer(
     event.transaction.hash.concatI32(event.logIndex.toI32())
@@ -100,3 +108,23 @@ export function handleTransfer(event: TransferEvent): void {
 
   entity.save()
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
