@@ -4,9 +4,14 @@ pragma solidity ^0.8.20;
 import "../interfaces/ICompoundV3.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+/**
+ * @title MockCompoundV3
+ * @dev Mock implementation of Compound V3 for testing
+ */
 contract MockCompoundV3 is ICompoundV3 {
     mapping(address => uint256) private balances;
     mapping(address => uint256) private supplyRates;
+    
     // Default USDC address - will be used when a specific asset is not provided
     address public defaultAsset;
     
@@ -56,4 +61,3 @@ contract MockCompoundV3 is ICompoundV3 {
         // Left simple for demonstration purposes
     }
 }
-

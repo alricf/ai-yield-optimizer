@@ -4,6 +4,10 @@ pragma solidity ^0.8.20;
 import "../interfaces/IAaveV3.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+/**
+ * @title MockAaveV3
+ * @dev A mock Aave V3 implementation for testing purposes
+ */
 contract MockAaveV3 is IAaveV3 {
     mapping(address => mapping(address => uint256)) private balances;
     mapping(address => uint256) private interestRates;
@@ -21,7 +25,7 @@ contract MockAaveV3 is IAaveV3 {
         balances[onBehalfOf][asset] += amount;
     }
     
-    function withdraw(address asset, uint256 amount, address to) external override {
+    function withdraw(address asset, uint256 amount, address to) external override returns (uint256) {
         require(balances[msg.sender][asset] >= amount, "Insufficient balance");
         
         // Update balance
@@ -29,6 +33,8 @@ contract MockAaveV3 is IAaveV3 {
         
         // Transfer tokens back to user
         IERC20(asset).transfer(to, amount);
+        
+        return amount;
     }
     
     function getInterestRate(address asset) external view override returns (uint256) {
